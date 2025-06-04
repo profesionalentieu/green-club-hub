@@ -1,75 +1,76 @@
 
 import React from 'react';
-import {
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Box,
-} from '@mui/material';
+import { Grid, Card, CardContent, Typography, Box } from '@mui/material';
+import { People, Event, SportsTennis, TrendingUp } from '@mui/icons-material';
 import MainLayout from '../components/layout/MainLayout';
 
-const StatCard = ({ title, value, change, changeColor = '#4ade80' }) => (
-  <Card>
-    <CardContent>
-      <Typography variant="h6" sx={{ mb: 2, color: 'text.secondary' }}>
-        {title}
-      </Typography>
-      <Typography variant="h3" sx={{ mb: 1, fontWeight: 600 }}>
-        {value}
-      </Typography>
-      <Typography variant="body2" sx={{ color: changeColor, fontWeight: 500 }}>
-        {change}
-      </Typography>
-    </CardContent>
-  </Card>
-);
-
 const Panel = () => {
-  return (
-    <MainLayout title="Panel">
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-          Bienvenida de nuevo, Sofía Rodríguez
-        </Typography>
-      </Box>
+  const stats = [
+    { title: 'Miembros Activos', value: '1,247', icon: <People />, color: '#4ade80' },
+    { title: 'Eventos este Mes', value: '28', icon: <Event />, color: '#1a4d3a' },
+    { title: 'Deportes Disponibles', value: '12', icon: <SportsTennis />, color: '#4ade80' },
+    { title: 'Ingresos Mensuales', value: '$45,230', icon: <TrendingUp />, color: '#1a4d3a' },
+  ];
 
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={4}>
-          <StatCard
-            title="Miembros Totales"
-            value="250"
-            change="+10%"
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <StatCard
-            title="Miembros Activos"
-            value="200"
-            change="+5%"
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <StatCard
-            title="Próximos Eventos"
-            value="5"
-            change="+2"
-          />
-        </Grid>
+  return (
+    <MainLayout title="Panel de Control">
+      <Grid container spacing={3}>
+        {stats.map((stat, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                  <Box
+                    sx={{
+                      p: 1,
+                      borderRadius: 2,
+                      backgroundColor: stat.color,
+                      color: 'white',
+                      mr: 2,
+                    }}
+                  >
+                    {stat.icon}
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    {stat.title}
+                  </Typography>
+                </Box>
+                <Typography variant="h4" sx={{ fontWeight: 700, color: stat.color }}>
+                  {stat.value}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
 
-      <Card>
-        <CardContent>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Estado de los Miembros
-          </Typography>
-          <Box sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-              Aquí irá el gráfico de estado de miembros
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
+      <Grid container spacing={3} sx={{ mt: 2 }}>
+        <Grid item xs={12} md={8}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                Actividad Reciente
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Aquí se mostrará la actividad reciente del club...
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        
+        <Grid item xs={12} md={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                Próximos Eventos
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Lista de próximos eventos...
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </MainLayout>
   );
 };
